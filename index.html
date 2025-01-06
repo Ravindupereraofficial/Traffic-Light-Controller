@@ -7,61 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-        video {
-            border: 2px solid #4CAF50;
-            border-radius: 8px;
-        }
-        .traffic-light {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-        }
-        .light {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin: 10px 0;
-            background-color: grey;
-            transition: background-color 0.3s ease;
-        }
-        .light.red {
-            background-color: grey;
-        }
-        .light.yellow {
-            background-color: grey;
-        }
-        .light.green {
-            background-color: grey;
-        }
-        .light.active.red {
-            background-color: red;
-            box-shadow: 0 0 20px red;
-        }
-        .light.active.yellow {
-            background-color: yellow;
-            box-shadow: 0 0 20px yellow;
-        }
-        .light.active.green {
-            background-color: green;
-            box-shadow: 0 0 20px green;
-        }
-        #state {
-            margin-top: 10px;
-            font-size: 1.5em;
-            color: #333;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Thumb Gesture Traffic Light Control</h1>
@@ -73,74 +19,6 @@
         <div id="green-light" class="light green"></div>
     </div>
 
-    <script>
-        const videoElement = document.getElementById('webcam');
-        const stateElement = document.getElementById('state');
-        const redLight = document.getElementById('red-light');
-        const yellowLight = document.getElementById('yellow-light');
-        const greenLight = document.getElementById('green-light');
-
-        const hands = new Hands({
-            locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`,
-        });
-
-        hands.setOptions({
-            maxNumHands: 1,
-            modelComplexity: 1,
-            minDetectionConfidence: 0.7,
-            minTrackingConfidence: 0.7,
-        });
-
-        hands.onResults((results) => {
-            if (!results.multiHandLandmarks || results.multiHandLandmarks.length === 0) {
-                return;
-            }
-
-            const handLandmarks = results.multiHandLandmarks[0];
-
-            const thumbTip = handLandmarks[4];
-            const thumbIp = handLandmarks[3];
-            const indexMcp = handLandmarks[5];
-
-            if (thumbTip.y < thumbIp.y && thumbTip.y < indexMcp.y) {
-                // Thumbs-up 
-                stateElement.textContent = 'Gesture: Thumbs Up';
-                setLight('green');
-            } else if (thumbTip.y > thumbIp.y && thumbTip.y > indexMcp.y) {
-                // Thumbs-down 
-                stateElement.textContent = 'Gesture: Thumbs Down';
-                setLight('red');
-            } else {
-                // Neutral 
-                stateElement.textContent = 'Gesture: Neutral';
-                setLight('yellow');
-            }
-        });
-
-        // Set the light
-        function setLight(color) {
-            redLight.classList.remove('active');
-            yellowLight.classList.remove('active');
-            greenLight.classList.remove('active');
-
-            if (color === 'red') {
-                redLight.classList.add('active');
-            } else if (color === 'yellow') {
-                yellowLight.classList.add('active');
-            } else if (color === 'green') {
-                greenLight.classList.add('active');
-            }
-        }
-
-        const camera = new Camera(videoElement, {
-            onFrame: async () => {
-                await hands.send({ image: videoElement });
-            },
-            width: 640,
-            height: 480,
-        });
-
-        camera.start();
-    </script>
+    <script src="script.js"> </script>
 </body>
 </html>
