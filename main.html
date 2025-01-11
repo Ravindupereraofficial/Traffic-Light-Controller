@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thumb Gesture Traffic Light Control</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <h1>Thumb Gesture Traffic Light Control</h1>
+    <div class="container">
+        <div id="camera-container">
+            <video id="webcam" autoplay muted></video>
+            <div id="state">Gesture: Neutral</div>
+        </div>
+        <div class="traffic-light">
+            <div id="red-light" class="light red"></div>
+            <div id="yellow-light" class="light yellow"></div>
+            <div id="green-light" class="light green"></div>
+            <div id="speech-text" class="speech-text">Speech: Neutral</div> <!-- Speech Text -->
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

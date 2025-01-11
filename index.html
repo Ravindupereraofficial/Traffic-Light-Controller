@@ -3,27 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thumb Gesture Traffic Light Control</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <title>Burger POS System</title>
+    <link rel="stylesheet" href="index.css">
+   
 </head>
 <body>
-    <h1>Thumb Gesture Traffic Light Control</h1>
-    <div class="container">
-        <div id="camera-container">
-            <video id="webcam" autoplay muted></video>
-            <div id="state">Gesture: Neutral</div>
-        </div>
-        <div class="traffic-light">
-            <div id="red-light" class="light red"></div>
-            <div id="yellow-light" class="light yellow"></div>
-            <div id="green-light" class="light green"></div>
-            <div id="speech-text" class="speech-text">Speech: Neutral</div> <!-- Speech Text -->
+    <!-- Login Page -->
+    <div class="login-page" id="loginPage">
+        <div class="background-overlay"></div>
+        <div class="main-container">
+            <div class="login-container">
+                <div class="logo">
+                    <img src="burger-logo.png" alt="Mos Burger Shop">
+                </div>
+                <h2>Welcome Back!</h2>
+                <p>Login to enjoy our delicious burgers</p>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <input type="text" id="username" name="username" placeholder="Username" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="password" name="password" placeholder="Password" required>
+                    </div>
+                    <input type="button" class="login-btn" value="Login" onclick="signIn()">
+                    <div class="links">
+                        <a href="/forgot-password">Forgot Password?</a>
+                        <a href="/signup">Create an Account</a>
+                    </div>
+                </form>
+            </div>
+            <div class="image-container">
+                <img src="img/Leonardo_Lightning_XL_A_realistic_depiction_of_a_juicy_burger_2.jpg" alt="Delicious Burger">
+            </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="index.js" defer></script>
 </body>
 </html>
