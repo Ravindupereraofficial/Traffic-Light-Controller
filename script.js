@@ -3,16 +3,8 @@ const stateElement = document.getElementById('state');
 const redLight = document.getElementById('red-light');
 const yellowLight = document.getElementById('yellow-light');
 const greenLight = document.getElementById('green-light');
+const speechText = document.getElementById('speech-text'); // Added speech text element
 
-// Variable to track the current traffic light state
-let currentState = null;
-
-// Check for speech synthesis support
-if (!('speechSynthesis' in window)) {
-    alert('Your browser does not support speech synthesis. Voice feedback will not work.');
-}
-
-// Initialize Mediapipe Hands
 const hands = new Hands({
     locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`,
 });
@@ -24,44 +16,35 @@ hands.setOptions({
     minTrackingConfidence: 0.7,
 });
 
-// Process gesture results
 hands.onResults((results) => {
     if (!results.multiHandLandmarks || results.multiHandLandmarks.length === 0) {
         return;
     }
 
     const handLandmarks = results.multiHandLandmarks[0];
-
     const thumbTip = handLandmarks[4];
     const thumbIp = handLandmarks[3];
     const indexMcp = handLandmarks[5];
 
-    let gesture = 'Neutral';
     if (thumbTip.y < thumbIp.y && thumbTip.y < indexMcp.y) {
         // Thumbs-up
-        gesture = 'Green';
         stateElement.textContent = 'Gesture: Thumbs Up';
         setLight('green');
+        updateSpeechText('Green Light');
     } else if (thumbTip.y > thumbIp.y && thumbTip.y > indexMcp.y) {
         // Thumbs-down
-        gesture = 'Red';
         stateElement.textContent = 'Gesture: Thumbs Down';
         setLight('red');
+        updateSpeechText('Red Light');
     } else {
         // Neutral
-        gesture = 'Yellow';
         stateElement.textContent = 'Gesture: Neutral';
         setLight('yellow');
-    }
-
-    // Provide voice feedback only if the state changes
-    if (currentState !== gesture) {
-        currentState = gesture; // Update current state
-        provideVoiceFeedback(gesture); // Speak the new state
+        updateSpeechText('Yellow Light');
     }
 });
 
-// Function to set the traffic light
+// Set the light
 function setLight(color) {
     redLight.classList.remove('active');
     yellowLight.classList.remove('active');
@@ -76,27 +59,17 @@ function setLight(color) {
     }
 }
 
-// Function to provide voice feedback based on the gesture
-function provideVoiceFeedback(gesture) {
-    let message = '';
+// Update speech text visibility
+function updateSpeechText(message) {
+    speechText.textContent = `Speech: ${message}`;
+    speechText.style.opacity = 1;
 
-    if (gesture === 'Red') {
-        message = 'Traffic light is now red.';
-    } else if (gesture === 'Yellow') {
-        message = 'Traffic light is now yellow.';
-    } else if (gesture === 'Green') {
-        message = 'Traffic light is now green.';
-    }
-
-    if (message) {
-        const utterance = new SpeechSynthesisUtterance(message);
-        utterance.pitch = 1; // Adjust pitch (range: 0 to 2)
-        utterance.rate = 1;  // Adjust rate (range: 0.1 to 10)
-        window.speechSynthesis.speak(utterance);
-    }
+    // Hide the speech text after a few seconds
+    setTimeout(() => {
+        speechText.style.opacity = 0;
+    }, 2000); // Fade out after 2 seconds
 }
 
-// Initialize webcam and start detection
 const camera = new Camera(videoElement, {
     onFrame: async () => {
         await hands.send({ image: videoElement });

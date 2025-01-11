@@ -107,6 +107,17 @@ video {
     box-shadow: 0 0 30px green;
 }
 
+/* Speech Text */
+.speech-text {
+    font-size: 1.5rem;
+    color: #4CAF50;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    transition: opacity 0.5s ease;
+    opacity: 0;
+}
+
 /* Responsiveness */
 @media (max-width: 768px) {
     .container {
