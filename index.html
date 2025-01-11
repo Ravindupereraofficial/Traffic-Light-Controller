@@ -11,14 +11,19 @@
 </head>
 <body>
     <h1>Thumb Gesture Traffic Light Control</h1>
-    <video id="webcam" autoplay muted></video>
-    <div id="state">Gesture: Neutral</div>
-    <div class="traffic-light">
-        <div id="red-light" class="light red"></div>
-        <div id="yellow-light" class="light yellow"></div>
-        <div id="green-light" class="light green"></div>
+    <div class="container">
+        <div id="camera-container">
+            <video id="webcam" autoplay muted></video>
+            <div id="state">Gesture: Neutral</div>
+        </div>
+        <div class="traffic-light">
+            <div id="red-light" class="light red"></div>
+            <div id="yellow-light" class="light yellow"></div>
+            <div id="green-light" class="light green"></div>
+            <div id="speech-text" class="speech-text">Speech: Neutral</div> <!-- Speech Text -->
+        </div>
     </div>
 
-    <script src="script.js"> </script>
+    <script src="script.js"></script>
 </body>
 </html>
