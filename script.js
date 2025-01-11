@@ -16,6 +16,8 @@ hands.setOptions({
     minTrackingConfidence: 0.7,
 });
 
+let lastSpokenMessage = '';  // Store the last spoken message to avoid repeating the same speech
+
 hands.onResults((results) => {
     if (!results.multiHandLandmarks || results.multiHandLandmarks.length === 0) {
         return;
@@ -26,21 +28,30 @@ hands.onResults((results) => {
     const thumbIp = handLandmarks[3];
     const indexMcp = handLandmarks[5];
 
+    let gestureMessage = '';
+    let lightColor = '';
+
     if (thumbTip.y < thumbIp.y && thumbTip.y < indexMcp.y) {
         // Thumbs-up
-        stateElement.textContent = 'Gesture: Thumbs Up';
-        setLight('green');
-        updateSpeechText('Green Light');
+        gestureMessage = 'Green Light';
+        lightColor = 'green';
     } else if (thumbTip.y > thumbIp.y && thumbTip.y > indexMcp.y) {
         // Thumbs-down
-        stateElement.textContent = 'Gesture: Thumbs Down';
-        setLight('red');
-        updateSpeechText('Red Light');
+        gestureMessage = 'Red Light';
+        lightColor = 'red';
     } else {
-        // Neutral
-        stateElement.textContent = 'Gesture: Neutral';
-        setLight('yellow');
-        updateSpeechText('Yellow Light');
+        // Neutral (Thumbs neutral)
+        gestureMessage = 'Yellow Light';
+        lightColor = 'yellow';
+    }
+
+    // Avoid speaking the same message continuously
+    if (gestureMessage !== lastSpokenMessage) {
+        lastSpokenMessage = gestureMessage;  // Update the last spoken message
+        stateElement.textContent = `Gesture: ${gestureMessage}`;
+        setLight(lightColor);
+        updateSpeechText(gestureMessage);
+        speak(gestureMessage);  // Speak the gesture message in real-time
     }
 });
 
@@ -68,6 +79,12 @@ function updateSpeechText(message) {
     setTimeout(() => {
         speechText.style.opacity = 0;
     }, 2000); // Fade out after 2 seconds
+}
+
+// Speak the message using Speech Synthesis API
+function speak(message) {
+    const utterance = new SpeechSynthesisUtterance(message);
+    window.speechSynthesis.speak(utterance);
 }
 
 const camera = new Camera(videoElement, {
