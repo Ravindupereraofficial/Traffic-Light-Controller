@@ -3,7 +3,7 @@ const stateElement = document.getElementById('state');
 const redLight = document.getElementById('red-light');
 const yellowLight = document.getElementById('yellow-light');
 const greenLight = document.getElementById('green-light');
-const speechText = document.getElementById('speech-text'); // Added speech text element
+const speechText = document.getElementById('speech-text'); 
 
 const hands = new Hands({
     locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`,
@@ -16,7 +16,7 @@ hands.setOptions({
     minTrackingConfidence: 0.7,
 });
 
-let lastSpokenMessage = '';  // Store the last spoken message to avoid repeating the same speech
+let lastSpokenMessage = '';  
 
 hands.onResults((results) => {
     if (!results.multiHandLandmarks || results.multiHandLandmarks.length === 0) {
@@ -33,29 +33,29 @@ hands.onResults((results) => {
 
     if (thumbTip.y < thumbIp.y && thumbTip.y < indexMcp.y) {
         // Thumbs-up
-        gestureMessage = 'Green Light';
+        gestureMessage = ' Stop your vehicle completely and wait for the green light';
         lightColor = 'green';
     } else if (thumbTip.y > thumbIp.y && thumbTip.y > indexMcp.y) {
         // Thumbs-down
-        gestureMessage = 'Red Light';
+        gestureMessage = 'Stop your vehicle completely and wait for the green light';
         lightColor = 'red';
     } else {
-        // Neutral (Thumbs neutral)
-        gestureMessage = 'Yellow Light';
+        // Neutral 
+        gestureMessage = 'Slow down and prepare to stop as the light is about to turn red';
         lightColor = 'yellow';
     }
 
-    // Avoid speaking the same message continuously
+    
     if (gestureMessage !== lastSpokenMessage) {
-        lastSpokenMessage = gestureMessage;  // Update the last spoken message
+        lastSpokenMessage = gestureMessage;  
         stateElement.textContent = `Gesture: ${gestureMessage}`;
         setLight(lightColor);
         updateSpeechText(gestureMessage);
-        speak(gestureMessage);  // Speak the gesture message in real-time
+        speak(gestureMessage);  
     }
 });
 
-// Set the light
+
 function setLight(color) {
     redLight.classList.remove('active');
     yellowLight.classList.remove('active');
@@ -70,7 +70,7 @@ function setLight(color) {
     }
 }
 
-// Update speech text visibility
+
 function updateSpeechText(message) {
     speechText.textContent = `Speech: ${message}`;
     speechText.style.opacity = 1;
@@ -78,10 +78,10 @@ function updateSpeechText(message) {
     // Hide the speech text after a few seconds
     setTimeout(() => {
         speechText.style.opacity = 0;
-    }, 2000); // Fade out after 2 seconds
+    }, 2000);
 }
 
-// Speak the message using Speech Synthesis API
+// Speak the message using  API
 function speak(message) {
     const utterance = new SpeechSynthesisUtterance(message);
     window.speechSynthesis.speak(utterance);

@@ -294,7 +294,7 @@ body {
   }
   
   button.login-btn:hover {
-    background-color: #ff3d2e;
+    background-color: #fc2a1b;
   }
   
   .links {
@@ -302,7 +302,7 @@ body {
   }
   
   .links a {
-    color: #ff6f61;
+    color: #ad4940;
     text-decoration: none;
     font-size: 14px;
   }
@@ -326,7 +326,7 @@ body {
 
   /*  login button css*/
 .login-btn {
-  background-color: #f48a48; 
+  background-color: #995830; 
   color: white; 
   border: none; 
   padding: 10px 20px; 
