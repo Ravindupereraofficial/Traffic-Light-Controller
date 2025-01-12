@@ -16,45 +16,37 @@ hands.setOptions({
     minTrackingConfidence: 0.7,
 });
 
-let lastSpokenMessage = '';  
+let lastSpokenMessage = ''; 
 
 hands.onResults((results) => {
     if (!results.multiHandLandmarks || results.multiHandLandmarks.length === 0) {
         return;
     }
 
-    const handLandmarks = results.multiHandLandmarks[0];
+    const gesture = detectGesture(results.multiHandLandmarks[0]);
+
+    if (gesture.message !== lastSpokenMessage) {
+        lastSpokenMessage = gesture.message; 
+        stateElement.textContent = `Gesture: ${gesture.message}`;
+        setLight(gesture.lightColor);
+        updateSpeechText(gesture.message);
+        speak(gesture.message);
+    }
+});
+
+function detectGesture(handLandmarks) {
     const thumbTip = handLandmarks[4];
     const thumbIp = handLandmarks[3];
     const indexMcp = handLandmarks[5];
 
-    let gestureMessage = '';
-    let lightColor = '';
-
     if (thumbTip.y < thumbIp.y && thumbTip.y < indexMcp.y) {
-        // Thumbs-up
-        gestureMessage = ' Stop your vehicle completely and wait for the green light';
-        lightColor = 'green';
+        return { message: 'You Can Go Now', lightColor: 'green' }; // Thumbs-up
     } else if (thumbTip.y > thumbIp.y && thumbTip.y > indexMcp.y) {
-        // Thumbs-down
-        gestureMessage = 'Stop your vehicle completely and wait for the green light';
-        lightColor = 'red';
+        return { message: 'Stop your vehicle completely', lightColor: 'red' }; // Thumbs-down
     } else {
-        // Neutral 
-        gestureMessage = 'Slow down and prepare to stop as the light is about to turn red';
-        lightColor = 'yellow';
+        return { message: 'Ready To Go', lightColor: 'yellow' }; // Neutral
     }
-
-    
-    if (gestureMessage !== lastSpokenMessage) {
-        lastSpokenMessage = gestureMessage;  
-        stateElement.textContent = `Gesture: ${gestureMessage}`;
-        setLight(lightColor);
-        updateSpeechText(gestureMessage);
-        speak(gestureMessage);  
-    }
-});
-
+}
 
 function setLight(color) {
     redLight.classList.remove('active');
@@ -70,19 +62,20 @@ function setLight(color) {
     }
 }
 
-
 function updateSpeechText(message) {
     speechText.textContent = `Speech: ${message}`;
     speechText.style.opacity = 1;
 
-    // Hide the speech text after a few seconds
+    
     setTimeout(() => {
         speechText.style.opacity = 0;
     }, 2000);
 }
 
-// Speak the message using  API
 function speak(message) {
+    if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel(); 
+    }
     const utterance = new SpeechSynthesisUtterance(message);
     window.speechSynthesis.speak(utterance);
 }

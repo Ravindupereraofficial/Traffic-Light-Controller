@@ -1,4 +1,4 @@
-/* General Reset */
+
 * {
     margin: 0;
     padding: 0;
@@ -17,7 +17,7 @@ body {
     overflow: hidden;
 }
 
-/* Title Styling */
+
 h1 {
     font-size: 2.5rem;
     color: #4CAF50;
@@ -26,7 +26,7 @@ h1 {
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-/* Flexbox Container */
+
 .container {
     display: flex;
     flex-direction: row;
@@ -41,7 +41,7 @@ h1 {
     gap: 20px;
 }
 
-/* Camera Container */
+
 #camera-container {
     display: flex;
     flex-direction: column;
@@ -70,7 +70,6 @@ video {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Traffic Light Styling */
 .traffic-light {
     display: flex;
     flex-direction: column;
@@ -107,7 +106,6 @@ video {
     box-shadow: 0 0 30px green;
 }
 
-/* Speech Text */
 .speech-text {
     font-size: 1.5rem;
     color: #4CAF50;
@@ -118,7 +116,7 @@ video {
     opacity: 0;
 }
 
-/* Responsiveness */
+
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
