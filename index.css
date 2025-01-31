@@ -1,345 +1,143 @@
-
+/* General Styles */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f1f1f1;
-    margin: 0;
-    padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background: url('https://static.vecteezy.com/system/resources/thumbnails/028/747/604/small/a-traffic-light-at-a-street-crossroads-with-a-beautiful-bokeh-city-and-cars-in-the-background-generative-ai-free-photo.jpg') no-repeat center center/cover;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
-#loginPage, #posSystem {
-    width: 100%;
-    max-width: 700px;
-    margin: 0 auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+.background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 1;
+}
+
+/* Main Container */
+.main-container {
+  display: flex;
+  width: 800px;
+  max-width: 90%;
+  height: 450px;
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  backdrop-filter: blur(12px);
+}
+
+/* Login Section */
+.login-container {
+  width: 50%;
+  padding: 30px 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.logo img {
+  width: 80px;
+  margin-bottom: 20px;
 }
 
 h2 {
-    text-align: center;
-    color: #333;
+  margin-bottom: 10px;
+  font-size: 24px;
+  color: #333;
 }
 
-input, button {
-    padding: 10px;
-    margin: 10px 0;
-    width: 100%;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+p {
+  font-size: 14px;
+  margin-bottom: 20px;
+  color: #555;
 }
 
-button {
-    background-color: #ff6600;
-    border: none;
-    cursor: pointer;
-    color: white;
+.form-group {
+  margin-bottom: 15px;
 }
 
-button:hover {
-    background-color: #ff3300;
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  border-radius: 25px;
+  border: none;
+  background-color: #f7f7f7;
+  font-size: 14px;
+  color: #333;
 }
 
-#categoryButtons {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+input::placeholder {
+  color: #aaa;
 }
 
-#burgerMenu {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+button.login-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #ff6f61;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
 }
 
-.burger-card {
-    background-color: #f6cece;
-    padding: 15px;
-    border: 1px solid #ddd;
-    width: 250px;
-    text-align: center;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+button.login-btn:hover {
+  background-color: #fc2a1b;
 }
 
-
-#cartSection {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    width: 300px;
-    background-color: #e29898;
-    padding: 20px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    max-height: 500px;
-    overflow-y: auto;
+.links {
+  margin-top: 15px;
 }
 
-#cartTableWrapper {
-    max-height: 250px;
-    overflow-y: auto;
-    margin-bottom: 20px;
+.links a {
+  color: #ad4940;
+  text-decoration: none;
+  font-size: 14px;
 }
 
-#orderHistory, #customerSection {
-    margin-top: 30px;
+.links a:hover {
+  text-decoration: underline;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
+/* Image Section */
+.image-container {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-th, td {
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #ddd;
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-th {
-    background-color: #f1f1f1;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-ul li {
-    margin: 5px 0;
-}
-
-button {
-    width: auto;
-    padding: 8px 20px;
-    background-color: #eb936a;
-    border-radius: 10px;
-}
-
-/* Customer Table css tika */
-#customerTable {
-    margin-top: 20px;
-    border-collapse: collapse;
-}
-
-#customerTable th, #customerTable td {
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #ddd;
-}
-
-#customerTable th {
-    background-color: #f1f1f1;
-}
-
-#cartSection {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    width: 300px;
-    background-color: #fff;
-    padding: 15px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    max-height: 500px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-#cartSection h3 {
-    margin: 0 0 20px 0;
-    font-size: 24px;
-}
-
-#cartTableWrapper {
-    margin-bottom: 15px;
-    width: 100%;
-}
-
-#cartTableWrapper table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-#cartTableWrapper th, #cartTableWrapper td {
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #ddd;
-}
-
-#cartTableWrapper td input {
-    width: 50px;
-    text-align: center;
-}
-
-#cartSection .total-info {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-}
-
-#cartSection button {
-    margin-top: 10px;
-    width: 100%;
-    background-color: #ff6600;
-    border: none;
-    cursor: pointer;
-    color: white;
-    padding: 10px;
-    font-size: 16px;
-}
-
-#cartSection button:hover {
-    background-color: #ff3300;
-}
-
-
-body {
-    font-family: 'Poppins', sans-serif;
-    background: url('https://static.vecteezy.com/system/resources/thumbnails/028/747/604/small/a-traffic-light-at-a-street-crossroads-with-a-beautiful-bokeh-city-and-cars-in-the-background-generative-ai-free-photo.jpg') no-repeat center center/cover;
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-  }
-  
-  .background-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.5); 
-    z-index: 1;
-  }
-  
-  .main-container {
-    display: flex;
-    width: 800px;
-    max-width: 90%;
-    height: 450px;
-    border-radius: 15px;
-    overflow: hidden;
-    position: relative;
-    z-index: 2; 
-    backdrop-filter: blur(12px); 
-  }
-  
-  .login-container {
-    width: 50%;
-    padding: 30px 40px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0.8); 
-  }
-  
-  .logo img {
-    width: 80px;
-    margin-bottom: 20px;
-  }
-  
-  h2 {
-    margin-bottom: 10px;
-    font-size: 24px;
-    color: #333;
-  }
-  
-  p {
-    font-size: 14px;
-    margin-bottom: 20px;
-    color: #555;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  input[type="text"],
-  input[type="password"] {
-    width: 100%;
-    padding: 12px;
-    border-radius: 25px;
-    border: none;
-    background-color: #f7f7f7;
-    font-size: 14px;
-    color: #333;
-  }
-  
-  input::placeholder {
-    color: #aaa;
-  }
-  
-  button.login-btn {
-    width: 100%;
-    padding: 12px;
-    background-color: #ff6f61;
-    border: none;
-    border-radius: 25px;
-    font-size: 16px;
-    color: #fff;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s;
-  }
-  
-  button.login-btn:hover {
-    background-color: #fc2a1b;
-  }
-  
-  .links {
-    margin-top: 15px;
-  }
-  
-  .links a {
-    color: #ad4940;
-    text-decoration: none;
-    font-size: 14px;
-  }
-  
-  .links a:hover {
-    text-decoration: underline;
-  }
-  
-  .image-container {
-    width: 70%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
+/* Button Styling */
 .login-btn {
-  background-color: #995830; 
-  color: white; 
-  border: none; 
-  padding: 10px 20px; 
-  font-size: 16px; 
-  cursor: pointer; 
-  border-radius: 5px; 
-  transition: background-color 0.3s ease; 
+  background-color: #995830;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
 .login-btn:hover {
-  background-color: #be6745; 
+  background-color: #be6745;
 }
-
-
-  
-  
-  
